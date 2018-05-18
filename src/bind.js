@@ -1,5 +1,8 @@
-global.bind = function (fn, context, args) {
+global.bind = function (insertFunction, context) {
+  var bindArgs = [].slice.call(arguments, 2);
   return function () {
-    return fn.call(context, args);
+    var args = [].slice.call(arguments);
+    var unshiftArgs = bindArgs.concat(args);
+    return insertFunction.apply(context, unshiftArgs);
   };
 };
